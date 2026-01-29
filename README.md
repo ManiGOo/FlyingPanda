@@ -15,8 +15,8 @@ To run this application locally, you'll need to have Docker and Docker Compose i
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository-url>
-    cd <repository-name>
+    git clone https://github.com/ManiGOo/FlyingPanda.git
+    cd FlyingPanda
     ```
 
 2.  **Start the application:**
