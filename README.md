@@ -23,6 +23,11 @@ To run this application locally, you'll need to have Docker and Docker Compose i
     ```bash
     docker-compose up --build
     ```
+    
+    For Linux users(maybe different on some destros):
+    ```bash
+    docker compose up --build
+    ```
     This command will build the Docker images for the frontend and backend services and start all the containers defined in the `docker-compose.yml` file.
 
 3.  **Access the application:**
