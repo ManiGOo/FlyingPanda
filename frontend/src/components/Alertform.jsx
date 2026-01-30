@@ -39,7 +39,7 @@ export default function AlertForm({ onSuccess }) {
     setError(null);
 
     try {
-      // Send only what your backend expects (usually country name and city name)
+      // Send only what backend expects (usually country name and city name)
       const payload = { 
         country: form.country, 
         city: form.city, 
