@@ -30,6 +30,8 @@ To run this application locally, you'll need to have Docker and Docker Compose i
     ```
     This command will build the Docker images for the frontend and backend services and start all the containers defined in the `docker-compose.yml` file.
 
+    Before starting the application, ensure you've configured your MongoDB connection string. In the `docker-compose.yml` file, locate the `backend` service and update the `MONGO_URI` environment variable. You can either create your own Atlas URL from MongoDB Atlas (recommended for cloud deployment) or provide an offline MongoDB URL based on your preference.
+
 3.  **Access the application:**
     Once the containers are up and running, you can access the frontend of the application in your browser at:
     [http://localhost:5173](http://localhost:5173)

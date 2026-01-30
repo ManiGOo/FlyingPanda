@@ -7,9 +7,7 @@ services:
       - "4000:4000"
     environment:
       PORT: 4000
-      Atlas: mongodb://database:27017/visa-alerts
-    depends_on:
-      - database
+      Atlas: ${Atlas}
     networks:
       - app-network
 
@@ -22,18 +20,6 @@ services:
     networks:
       - app-network
 
-  database:
-    image: mongo:latest
-    volumes:
-      - mongo-data:/data/db
-    ports:
-      - "27017:27017"
-    networks:
-      - app-network
-
 networks:
   app-network:
     driver: bridge
-
-volumes:
-  mongo-data:
