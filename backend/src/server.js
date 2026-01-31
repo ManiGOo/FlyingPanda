@@ -5,11 +5,30 @@ import { connectDB } from "./config/db.js"
 import alertRoutes from './routes/alerts.js'
 import { errorHandler } from './utils/errorHandler.js'
 
+
 dotenv.config();
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = [
+    'https://theflyingpanda.netlify.app',
+    'http://localhost:4000'
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
+    credentials: true,
+    optionsSuccessStatus: 200
+}));
+
 app.use(express.json());
 
 app.use((req, res, next) => {
