@@ -5,33 +5,33 @@ const WakeupPopup = ({ isDark }) => {
   const [countdown, setCountdown] = useState(30);
 
   useEffect(() => {
-    const checkServer = async () => {
-      try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/health`, {
-          cache: 'no-store'
-        });
+    const triggerPopup = () => {
+      // Prevent multiple timers if multiple requests fail
+      if (isVisible) return;
 
-        if (res.ok) {
-          setIsVisible(false);
-          return;
-        }
-        throw new Error("Server not ready");
-      } catch (err) {
-        setIsVisible(true);
-        const timer = setInterval(() => {
-          setCountdown((prev) => {
-            if (prev <= 1) {
-              clearInterval(timer);
-              window.location.reload();
-            }
-            return prev - 1;
-          });
-        }, 1000);
-      }
+      setIsVisible(true);
+      const timer = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            window.location.reload();
+          }
+          return prev - 1;
+        });
+      }, 1000);
     };
 
-    checkServer();
-  }, []);
+    // Listen for the custom event dispatched by Axios interceptor
+    window.addEventListener('server-cold-start', triggerPopup);
+
+    // Optional: Keep a silent "pre-warm" fetch that doesn't trigger the UI
+    // This starts the Render spin-up as soon as the component mounts
+    fetch(`${import.meta.env.VITE_API_URL}/api/health`).catch(() => {
+      /* Silent catch: Axios will handle the visible error */
+    });
+
+    return () => window.removeEventListener('server-cold-start', triggerPopup);
+  }, [isVisible]);
 
 
   if (!isVisible) return null;
