@@ -12,7 +12,7 @@ const app = express();
 
 const allowedOrigins = [
     'https://theflyingpanda.netlify.app',
-    'http://localhost:4000'
+    'http://localhost:5173'
 ];
 
 app.use(cors({
@@ -36,7 +36,12 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/health', (req, res) => res.json({ status: 'ok'}));
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ 
+        status: 'ok',
+        timestamp: new Date().toISOString() 
+    });
+});
 
 app.use('/api/alerts', alertRoutes);
 app.use(errorHandler);
