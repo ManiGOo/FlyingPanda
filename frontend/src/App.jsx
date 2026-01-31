@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import AlertForm from './components/Alertform';
 import AlertList from './components/AlertList';
 import Toast from './components/Toast';
+import WakeupPopup from './components/WakeupPopup'
 import pandaLogo from "/Flying Panda Logo.svg"
 
 
@@ -106,6 +107,7 @@ function App() {
       </footer>
 
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
+        <WakeupPopup />
     </div>
   );
 }
